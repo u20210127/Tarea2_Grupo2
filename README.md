@@ -1,6 +1,8 @@
 # Tarea2_Grupo2
 
 
-##Intehrantes##
+##Integrantes##
 
-Jose Enmanuel Mejia Henriquez
+-Mauricio Moises Carranza Viera
+
+-Jose Enmanuel Mejia Henriquez
