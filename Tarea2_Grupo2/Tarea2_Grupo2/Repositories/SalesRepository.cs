@@ -1,6 +1,6 @@
 ﻿namespace Tarea2_Grupo2.Repositories
 {
-    public class ICustomersRepositoty
+    public class SalesRepository : ISalesRepository
     {
     }
 }
