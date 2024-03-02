@@ -1,0 +1,54 @@
+﻿@model EmployeesModel
+
+@{
+    ViewData["Title"] = "Editar empleado";
+}
+
+<h1>Editar Empleado</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit">
+                @Html.AntiForgeryToken()
+                <input asp-for="id_Employee" type="hidden" class="form-control" />
+                <div class="mb-3">
+                    <label asp-for="Name_Employee" class="form-label">Name_Employee</label>
+                    <input asp-for="Name_Employee" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Address_Employee" class="form-label">Address_Employee</label>
+                    <input asp-for="Address_Employee" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Phone_Employee" class="form-label">Phone_Employee</label>
+                    <input asp-for="Phone_Employee" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Editar</button>
+
+                    <a asp-action="Index">Regresar al listado</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+        function confirmAction() {
+            if (confirm('¿Estás seguro de editar este empleado?')) {
+                return true;
+            } else {
+                window.location.href = '@Url.Action("Index", "Employees")';
+                return false;
+            }
+        }
+    </script>
+}

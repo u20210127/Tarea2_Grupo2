@@ -1,0 +1,97 @@
+﻿@model IEnumerable<CustomersModel>
+
+@{
+    ViewData["Title"] = "Listado de clientes.";
+}
+
+<h1>Listado de clientes.</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="mt-3 mb-3">
+                <a asp-action="Create" asp-controller="Customers" class="btn btn-success">
+                    Nuevo cliente
+                </a>
+            </div>
+
+            <table class="table table-bordered table-striped table-responsive" id="customersTable">
+                <thead>
+                    <tr>
+                        <th>id_Customer</th>
+                        <th>Name_Customer</th>
+                        <th>Address_Customer</th>
+                        <th>Phone_Customer</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customers in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(item => customers.id_Customer)</td>
+                            <td>@Html.DisplayFor(item => customers.Name_Customer)</td>
+                            <td>@Html.DisplayFor(item => customers.Address_Customer)</td>
+                            <td>@Html.DisplayFor(item => customers.Phone_Customer)</td>
+                            <td>
+                                <a asp-controller="Customers"
+                                   asp-action="Edit"
+                                   asp-route-id="@customers.id_Customer"
+                                   class="btn btn-primary">
+                                    Editar
+                                </a>
+                                <a asp-controller="Customers"
+                                   asp-action="Delete"
+                                   asp-route-id="@customers.id_Customer"
+                                   class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#customersTable").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }
+                ],
+                columnDefs: [
+                    {
+                        targets: 4,
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                }
+            });
+        });
+    </script>
+}
