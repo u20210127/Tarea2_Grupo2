@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SalesModel>
+
+@{
+    ViewData["Title"] = "Listado de ventas.";
+}
+
+<h1>Listado de ventas.</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="mt-3 mb-3">
+                <a asp-action="Create" asp-controller="Sales" class="btn btn-success">
+                    Nueva venta
+                </a>
+            </div>
+
+            <table class="table table-bordered table-striped table-responsive" id="salesTable">
+                <thead>
+                    <tr>
+                        <th>id_Sales</th>
+                        <th>Name_Customer</th>
+                        <th>Name_Product</th>
+                        <th>Name_Employee</th>
+                        <th>Date_Sale</th>
+                        <th>Total_Paid</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var sales in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(item => sales.id_Sales)</td>
+                            <td>@Html.DisplayFor(item => sales.Name_Customer)</td>
+                            <td>@Html.DisplayFor(item => sales.Name_Product)</td>
+                            <td>@Html.DisplayFor(item => sales.Name_Employee)</td>
+                            <td>@Html.DisplayFor(item => sales.Date_Sale)</td>
+                            <td>@Html.DisplayFor(item => sales.Total_Paid)</td>
+                            <td>
+                                <a asp-controller="Sales"
+                                   asp-action="Edit"
+                                   asp-route-id="@sales.id_Sales"
+                                   class="btn btn-primary">
+                                    Editar
+                                </a>
+                                <a asp-controller="Sales"
+                                   asp-action="Delete"
+                                   asp-route-id="@sales.id_Sales"
+                                   class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#salesTable").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }
+                ],
+                columnDefs: [
+                    {
+                        targets: 4,
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                }
+            });
+        });
+    </script>
+}
