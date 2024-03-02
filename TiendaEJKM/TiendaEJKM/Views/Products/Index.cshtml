@@ -1,0 +1,99 @@
+﻿@model IEnumerable<ProductsModel>
+
+@{
+    ViewData["Title"] = "Listado de productos.";
+}
+
+<h1>Listado de productos.</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="mt-3 mb-3">
+                <a asp-action="Create" asp-controller="Products" class="btn btn-success">
+                    Nuevo producto
+                </a>
+            </div>
+
+            <table class="table table-bordered table-striped table-responsive" id="productsTable">
+                <thead>
+                    <tr>
+                        <th>id_Product</th>
+                        <th>Name_Product</th>
+                        <th>Category_Product</th>
+                        <th>Price_Product</th>
+                        <th>Availability_Product</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var products in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(item => products.id_Product)</td>
+                            <td>@Html.DisplayFor(item => products.Name_Product)</td>
+                            <td>@Html.DisplayFor(item => products.Category_Product)</td>
+                            <td>@Html.DisplayFor(item => products.Price_Product)</td>
+                            <td>@Html.DisplayFor(item => products.Availability_Product)</td>
+                            <td>
+                                <a asp-controller="Products"
+                                   asp-action="Edit"
+                                   asp-route-id="@products.id_Product"
+                                   class="btn btn-primary">
+                                    Editar
+                                </a>
+                                <a asp-controller="Products"
+                                   asp-action="Delete"
+                                   asp-route-id="@products.id_Product"
+                                   class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#productsTable").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }
+                ],
+                columnDefs: [
+                    {
+                        targets: 5,
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                }
+            });
+        });
+    </script>
+}
