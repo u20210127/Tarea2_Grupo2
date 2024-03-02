@@ -1,0 +1,81 @@
+﻿@model TiendaEJKM.Models.SalesModel
+
+@{
+    ViewData["Title"] = "Editar venta";
+}
+
+<h1>Editar venta</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name_Customer" class="control-label"></label>
+                <select class="form-select" asp-for="id_Customer" asp-items="@ViewBag.tbl_Customers">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="id_Customer" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name_Product" class="control-label"></label>
+                <select class="form-select" asp-for="id_Product" asp-items="@ViewBag.tbl_Products">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="id_Product" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name_Employee" class="control-label"></label>
+                <select class="form-select" asp-for="id_Employee" asp-items="@ViewBag.tbl_Employees">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="id_Employee" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Date_Sale" class="control-label"></label>
+                <input asp-for="Date_Sale" class="form-control" />
+                <span asp-validation-for="Date_Sale" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Total_Paid" class="control-label"></label>
+                <input asp-for="Total_Paid" class="form-control" />
+                <span asp-validation-for="Total_Paid" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <input asp-for="id_Sales" type="hidden" class="form-contro" />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Editar</button>
+
+                <a asp-action="Index">Regresar al listado</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+        function confirmAction() {
+            if (confirm('¿Estás seguro de editar esta venta?')) {
+                return true;
+            } else {
+                window.location.href = '@Url.Action("Index", "Sales")';
+                return false;
+            }
+        }
+    </script>
+}
